@@ -156,3 +156,8 @@ async def analyze_juice(file: UploadFile = File(...)):
         raise
     except Exception as e:
         raise HTTPException(status_code=502, detail=f"Nutrition analysis failed: {str(e)}")
+    
+
+    if __name__ == "__main__":
+        port = int(os.environ.get("PORT", 8000))  # Render sets this
+        uvicorn.run("app:app", host="0.0.0.0", port=port, reload=False)
