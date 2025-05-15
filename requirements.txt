@@ -1,12 +1,10 @@
 fastapi
 uvicorn
-pillow
-pytesseract
+
+
 psycopg2-binary
 requests
 dotenv
-python-multipart
-transformers
-torch
-openai
+
+
 google-generativeai
