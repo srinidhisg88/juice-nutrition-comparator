@@ -47,17 +47,23 @@ def fetch_alternatives(nutrition):
     """
     conn = connect_db()
     cursor = conn.cursor()
-
-    query = """
-        SELECT name, brand, sugar_g, calories_kcal, vitamin_c_mg, has_preservatives
-        FROM juices
-        WHERE sugar_g <= %s
-          AND calories_kcal <= %s
-          AND (vitamin_c_mg IS NULL OR vitamin_c_mg >= %s)
-          AND has_preservatives = FALSE
-        ORDER BY sugar_g ASC, calories_kcal ASC, vitamin_c_mg DESC
-        LIMIT 5;
-    """
+    query='''SELECT name, brand, sugar_g, calories_kcal, vitamin_c_mg, has_preservatives
+FROM juices
+WHERE sugar_g <= %s + 5
+  AND calories_kcal <= %s + 20
+  AND (vitamin_c_mg IS NULL OR vitamin_c_mg >= %s - 10)
+ORDER BY has_preservatives ASC, sugar_g ASC, calories_kcal ASC, vitamin_c_mg DESC
+LIMIT 5;'''
+    # query = """
+    #     SELECT name, brand, sugar_g, calories_kcal, vitamin_c_mg, has_preservatives
+    #     FROM juices
+    #     WHERE sugar_g <= %s
+    #       AND calories_kcal <= %s
+    #       AND (vitamin_c_mg IS NULL OR vitamin_c_mg >= %s)
+    #       AND has_preservatives = FALSE
+    #     ORDER BY sugar_g ASC, calories_kcal ASC, vitamin_c_mg DESC
+    #     LIMIT 5;
+    # """
 
     cursor.execute(
         query,
